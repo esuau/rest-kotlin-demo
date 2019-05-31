@@ -1,7 +1,6 @@
 package io.esuau.rest
 
 import io.esuau.definition.Book
-import java.lang.Exception
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
@@ -21,9 +20,6 @@ class BookResource {
 
     @GET
     @Path("/{id}")
-    fun getBookById(@PathParam("id") id: Long): Response {
-        val book: Book = books.find { it.id == id } ?: return Response.status(Response.Status.NOT_FOUND).entity("ERROR: Book does not exist").build()
-        return Response.ok(book).build()
-    }
+    fun getBookById(@PathParam("id") id: Long): Any = books.find { it.id == id } ?: Response.status(Response.Status.NOT_FOUND).entity("ERROR: Book does not exist").build()
 
 }
