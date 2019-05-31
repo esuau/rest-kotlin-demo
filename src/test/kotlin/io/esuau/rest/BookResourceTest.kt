@@ -9,12 +9,22 @@ import org.junit.jupiter.api.Test
 open class BookResourceTest {
 
     @Test
-    fun testHelloEndpoint() {
+    fun testBooksEndpoint() {
         given()
           .`when`().get("/books")
           .then()
              .statusCode(200)
-             .body(`is`("hello"))
+             .body("$.size()", `is`(2))
+    }
+
+    @Test
+    fun testBookByIdEndpoint() {
+        given()
+          .`when`().get("/books/1")
+          .then()
+            .statusCode(200)
+            .body("id", `is`(1),
+                  "title", `is`("Clean Architecture: A Craftsman's Guide to Software Structure and Design"))
     }
 
 }
